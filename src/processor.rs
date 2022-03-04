@@ -81,7 +81,7 @@ impl Processor {
             takers_sending_token_account.key,
             initializers_token_to_receive_account.key,
             taker.key,
-            &[&taker.key],
+            &[taker.key],
             escrow_info.expected_amount,
         )?;
         msg!("Calling the token program to transfer tokens to the escrow's initializer...");
@@ -108,7 +108,7 @@ impl Processor {
         )?;
         msg!("Calling the token program to transfer tokens to the taker...");
         invoke_signed(
-            &transfeer_to_taker_ix,
+            &transfer_to_taker_ix,
             &[
                 pdas_temp_token_account.clone(),
                 takers_token_to_receive_account.clone(),
@@ -193,7 +193,7 @@ impl Processor {
             Some(&pda),
             spl_token::instruction::AuthorityType::AccountOwner,
             initializer.key,
-            &[&initializer.key],
+            &[initializer.key],
         )?;
 
         msg!("Calling the token program to transfer token account ownership...");
